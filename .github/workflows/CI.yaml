@@ -1,0 +1,13 @@
+name: CI workflow
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+    CI:
+        runs-on: self-hosted
+        steps:
+            - name: Run Hello World
+              run: echo hello world
