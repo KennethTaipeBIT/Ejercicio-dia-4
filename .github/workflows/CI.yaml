@@ -9,5 +9,5 @@ jobs:
     CI:
         runs-on: self-hosted
         steps:
-            - name: Run Hello World
-              run: echo hello world
+            - uses: actions/checkout@v7
+            - run: ls -la
