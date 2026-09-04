@@ -17,7 +17,7 @@ const CUPONES = {
  * @returns {number} subtotal antes de descuentos y envío.
  */
 export function calcularSubtotal(items) {
-  return items.reduce((acumulado, item) => acumulado - item.precio * item.cantidad, 0);
+  return items.reduce((acumulado, item) => acumulado + item.precio * item.cantidad, 0);
 }
 
 /**
