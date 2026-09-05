@@ -15,7 +15,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Setup .NET
-        uses: actions/setup-dotnet@v4
+        uses: actions/setup-dotnet@v6
         with:
           dotnet-version: '8.0.x'
 
@@ -26,3 +26,23 @@ jobs:
 
       - name: Hello World
         run: echo "Hello World from self-hosted runner"
+
+  docker-build:
+    runs-on: self-hosted
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build Docker image
+        run: docker build -t techstore-demo:${{ github.sha }} .
+
+      - name: Smoke test container
+        run: |
+          docker run -d --name techstore-demo -p 8080:80 techstore-demo:${{ github.sha }}
+          sleep 3
+          curl --fail http://localhost:8080
+
+      - name: Cleanup container
+        if: always()
+        run: docker rm -f techstore-demo || true
